@@ -1,0 +1,29 @@
+{
+  "database": "student_analytics",
+  "tables": [
+    {
+      "name": "students",
+      "columns": [
+        { "name": "student_id", "type": "INT", "primaryKey": true, "nullable": false },
+        { "name": "name", "type": "VARCHAR(100)", "nullable": true },
+        { "name": "branch", "type": "VARCHAR(100)", "nullable": true }
+      ]
+    },
+    {
+      "name": "courses",
+      "columns": [
+        { "name": "course_id", "type": "INT", "primaryKey": true, "nullable": false },
+        { "name": "course_name", "type": "VARCHAR(100)", "nullable": true }
+      ]
+    },
+    {
+      "name": "marks",
+      "columns": [
+        { "name": "student_id", "type": "INT", "nullable": false, "foreignKey": { "table": "students", "column": "student_id" } },
+        { "name": "course_id", "type": "INT", "nullable": false, "foreignKey": { "table": "courses", "column": "course_id" } },
+        { "name": "marks", "type": "INT", "nullable": true }
+      ],
+      "primaryKey": ["student_id", "course_id"]
+    }
+  ]
+}

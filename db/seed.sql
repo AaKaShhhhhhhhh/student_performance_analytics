@@ -1,0 +1,42 @@
+
+
+
+INSERT IGNORE INTO students (student_id, name, branch)
+SELECT
+  6 + nums.n AS student_id
+  CONCAT(
+    ELT(FLOOR(RAND() * 12) + 1,
+      'Aakash','Riya','Rahul','Priya','Vikram','Neha','Arjun','Ananya','Kabir','Ishita','Saanvi','Aditya'
+    ),
+    ' ',
+    ELT(FLOOR(RAND() * 12) + 1,
+      'Kamal','Sharma','Mehta','Singh','Patel','Gupta','Verma','Rao','Iyer','Khan','Das','Nair'
+    )
+  ) AS name,
+  ELT(FLOOR(RAND() * 6) + 1, 'CSE', 'IT', 'AI', 'ECE', 'ME', 'CE') AS branch
+FROM (
+  SELECT ones.d + tens.d * 10 AS n
+  FROM
+    (SELECT 0 AS d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) ones
+  CROSS JOIN
+    (SELECT 0 AS d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) tens
+) nums;
+
+
+INSERT IGNORE INTO marks (student_id, course_id, marks)
+SELECT
+  6 + nums.n AS student_id,
+  c.course_id,
+  FLOOR(RAND() * 101) AS marks
+FROM (
+  SELECT ones.d + tens.d * 10 AS n
+  FROM
+    (SELECT 0 AS d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) ones
+  CROSS JOIN
+    (SELECT 0 AS d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) tens
+) nums
+JOIN courses c;
